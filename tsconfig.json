@@ -24,5 +24,17 @@
   "include": [
     "src/**/*" // *** The files TypeScript should type check ***
   ],
-  "exclude": ["node_modules", "build"] // *** The files to not type check ***
+  // *** The files to not type check ***
+  "exclude": [
+    "build",
+    "coverage",
+    "node_modules",
+    "dist",
+    "*.js",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.test.js",
+    "**/*.test.jsx",
+    "**/*.snap"
+  ]
 }

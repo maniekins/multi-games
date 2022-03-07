@@ -1,0 +1,15 @@
+node_modules/
+build/
+dist/
+config/
+coverage/
+scripts/
+.yarn/
+.storybook/
+storybook-static/
+build-storybook/
+public/
+# Doesn't seem to be included in the project, ignoring for now
+*.config.js
+
+
