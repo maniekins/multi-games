@@ -33,6 +33,7 @@
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.4.3",
+    "jest-extended": "^2.0.0",
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
     "mini-css-extract-plugin": "^2.4.5",
@@ -93,7 +94,8 @@
   },
   "jest": {
     "roots": [
-      "<rootDir>/src"
+      "<rootDir>/src",
+      "<rootDir>/test"
     ],
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
@@ -103,11 +105,12 @@
       "react-app-polyfill/jsdom"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.ts"
+      "jest-extended",
+      "<rootDir>/test/setupTests.ts"
     ],
     "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+      "<rootDir>/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/**/*.{spec,test}.{js,jsx,ts,tsx}"
     ],
     "testEnvironment": "jsdom",
     "transform": {
