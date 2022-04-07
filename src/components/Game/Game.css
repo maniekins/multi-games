@@ -1,0 +1,12 @@
+.Game {
+  height: 100%;
+  width: 100%;
+
+  background-color: bisque;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
