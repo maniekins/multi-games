@@ -1,12 +1,11 @@
 import React, { useContext } from 'react';
-import { KeysPressed } from '../../commons/Keyboard';
 
 type InitialStateType = {
-  keyPressed: KeysPressed;
+  something: boolean;
 };
 
 const initialState: InitialStateType = {
-  keyPressed: new KeysPressed([]),
+  something: false,
 };
 const GameContext = React.createContext(initialState);
 

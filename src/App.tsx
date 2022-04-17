@@ -6,8 +6,7 @@ function App() {
   return (
     <div className="App">
       <Game>
-        <div>Contrte</div>
-        <div>Contrte</div>
+        <div>Content</div>
       </Game>
     </div>
   );

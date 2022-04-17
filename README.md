@@ -44,3 +44,22 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Ideas:
+
+1. Strategia kwadratowa:
+
+[][][][][][][][][][]
+[][][][][][][][][][]
+[][][][][][][][][][]
+[][][][][][][][][][]
+[][][][][][][][][][]
+[][][][][][][][][][]
+[][][][][][][][][][]
+[][][][][][][][][][]
+
+kafelek reprezentuje jakies terytorium i generuje drewno, kamien, zelazo, itp
+
+Male upki jakies mozna robic, wojsko, i atakowac sasiedni, eksplorowac.
+Sieciowo ? uuu jak :D
+Potrzebny Node.js express

@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from 'react';
-import useKeyboardController, { KeysPressed, mapKeys } from '../../commons/Keyboard';
-import { GameProvider } from './context';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { KeyboardProvider, useKeyboardContext } from '../../services/Keyboard';
+import { getRandomIntInclusive } from '../../utils';
 import './Game.css';
 import TestNPC from './Objects/TestNPC/TestNPC';
 
@@ -12,12 +12,27 @@ type GameProviderProps = {
   children?: React.ReactNode;
 };
 
-const Game: React.FC<GameProps> = ({ children }) => {
-  // const x = useGameContext();
-  // console.log('Game context', x);
+const Game: FunctionComponent<GameProps> = ({ children }) => {
+  const x = useKeyboardContext();
+
+  useEffect(() => {
+    console.log('x', Date.now());
+  }, [x]);
+  const [xc] = useState(() => {
+    const x = new Array(100);
+    x.fill('');
+    return x;
+  });
+
   return (
     <div className="Game">
       <TestNPC />
+      {xc.map((_, i) => (
+        <TestNPC
+          key={i}
+          startedLocation={{ left: getRandomIntInclusive(10, 1000), top: getRandomIntInclusive(10, 500) }}
+        />
+      ))}
       {children}
     </div>
   );
@@ -25,17 +40,10 @@ const Game: React.FC<GameProps> = ({ children }) => {
 const MemoGame = React.memo(Game);
 
 const GameWithProvider: React.FC<GameProviderProps> = ({ children }) => {
-  const [keyPressed, setKeyPressed] = useState<KeysPressed>(new KeysPressed([]));
-
-  const keyboardCallback = useCallback(({ keys }) => {
-    setKeyPressed(mapKeys(keys, { arrows: true }));
-  }, []);
-  useKeyboardController(keyboardCallback, 200);
-
   return (
-    <GameProvider value={{ keyPressed }}>
+    <KeyboardProvider>
       <MemoGame>{children}</MemoGame>
-    </GameProvider>
+    </KeyboardProvider>
   );
 };
 

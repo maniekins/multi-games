@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useGameContext } from '../..';
+import React, { FunctionComponent, useEffect, useState } from 'react';
+import { useKeyboardContext } from '../../../../services/Keyboard';
 import './TestNPC.css';
 
 type Props = {
-  // children?: React.ReactNode;
+  startedLocation?: {
+    left: number;
+    top: number;
+  };
 };
 
-const TestNPC: React.FC<Props> = () => {
-  const { keyPressed } = useGameContext();
-  const [location, setLocation] = useState({
+const TestNPC: FunctionComponent<Props> = ({
+  startedLocation = {
     left: 50,
     top: 50,
-  });
+  },
+}) => {
+  const { keyPressed } = useKeyboardContext();
+  const [location, setLocation] = useState(startedLocation);
 
   useEffect(() => {
     const newLocation = { ...location };
@@ -19,9 +24,12 @@ const TestNPC: React.FC<Props> = () => {
     keyPressed.down() && (newLocation.top += 10);
     keyPressed.left() && (newLocation.left -= 10);
     keyPressed.right() && (newLocation.left += 10);
-    console.log('keyPressed', keyPressed);
     setLocation(newLocation);
   }, [keyPressed]);
+
+  useEffect(() => {
+    // setContextTestNPCLocastion
+  }, [location]);
   return <div className="TestNPC" style={{ left: location.left, top: location.top }}></div>;
 };
 
