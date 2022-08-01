@@ -28,7 +28,6 @@ const Render: FunctionComponent = () => {
   // think about add this to some context
   const { mapVision } = useGameContext();
   // const generatedMap = useMemo(() => getMap({ mapSettings: customMapSettings, mapSize: customMapSize }), []);
-
   const generatedMap = useMemo(() => getMap({ mapSize: customMapSize }), []);
   const player = usePlayer({
     map: generatedMap,
