@@ -16,6 +16,7 @@ module.exports = {
     sourceType: 'module', // Allows for the use of imports
     tsconfigRootDir: __dirname,
   },
+  plugins: ['react', 'react-hooks'],
   rules: {
     // Place to specify ESLint rules. Can be used to overwrite rules specified from the extended configs
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
@@ -30,7 +31,7 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
-    'react-hooks/exhaustive-deps': 'off',
+    'react-hooks/exhaustive-deps': 'error',
     'sort-keys': [
       'error',
       'asc',

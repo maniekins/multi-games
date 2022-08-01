@@ -25,12 +25,13 @@ const TestNPC: FunctionComponent<Props> = ({
     keyPressed.left() && (newLocation.left -= 10);
     keyPressed.right() && (newLocation.left += 10);
     setLocation(newLocation);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyPressed]);
 
   useEffect(() => {
     // setContextTestNPCLocastion
   }, [location]);
-  return <div className="TestNPC" style={{ left: location.left, top: location.top }}></div>;
+  return <div className="Objects_TestNPC" style={{ left: location.left, top: location.top }}></div>;
 };
 
 export default React.memo(TestNPC);

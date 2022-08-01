@@ -1,50 +1,40 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { KeyboardProvider, useKeyboardContext } from '../../services/Keyboard';
-import { getRandomIntInclusive } from '../../utils';
+import React, { FunctionComponent, useMemo, useState } from 'react';
+import { KeyboardProvider } from '../../services/Keyboard';
+import { useViewActions } from '../../services/View';
 import './Game.css';
-import TestNPC from './Objects/TestNPC/TestNPC';
+import Options from './Options';
+
+import Render from './Render';
 
 type GameProps = {
   children?: React.ReactNode;
 };
 
-type GameProviderProps = {
-  children?: React.ReactNode;
-};
+const Game: FunctionComponent<GameProps> = () => {
+  const { setViewMenu } = useViewActions();
+  const [showGame, setShowGame] = useState(false);
 
-const Game: FunctionComponent<GameProps> = ({ children }) => {
-  const x = useKeyboardContext();
+  return useMemo(
+    () => (
+      <div>
+        <div className="Game">
+          <button onClick={setViewMenu}>BACK TO MENU</button>
+          <button onClick={() => setShowGame((prev) => !prev)}>{`${
+            showGame ? 'BACK TO OPTIONS' : 'SHOW GAME'
+          }`}</button>
 
-  useEffect(() => {
-    console.log('x', Date.now());
-  }, [x]);
-  const [xc] = useState(() => {
-    const x = new Array(100);
-    x.fill('');
-    return x;
-  });
-
-  return (
-    <div className="Game">
-      <TestNPC />
-      {xc.map((_, i) => (
-        <TestNPC
-          key={i}
-          startedLocation={{ left: getRandomIntInclusive(10, 1000), top: getRandomIntInclusive(10, 500) }}
-        />
-      ))}
-      {children}
-    </div>
-  );
-};
-const MemoGame = React.memo(Game);
-
-const GameWithProvider: React.FC<GameProviderProps> = ({ children }) => {
-  return (
-    <KeyboardProvider>
-      <MemoGame>{children}</MemoGame>
-    </KeyboardProvider>
+          {showGame ? (
+            <KeyboardProvider>
+              <Render />
+            </KeyboardProvider>
+          ) : (
+            <Options />
+          )}
+        </div>
+      </div>
+    ),
+    [setViewMenu, showGame],
   );
 };
 
-export default React.memo(GameWithProvider);
+export default React.memo(Game);

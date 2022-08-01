@@ -3,10 +3,16 @@ html,
 #root,
 .App {
   height: 100%;
+  background-color: brown;
 }
 
 .App {
   text-align: center;
+  display: flex;
+  justify-content: center;
+
+  position: absolute;
+  min-width: 100vw;
 }
 
 .App-logo {

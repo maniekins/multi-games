@@ -63,3 +63,5 @@ kafelek reprezentuje jakies terytorium i generuje drewno, kamien, zelazo, itp
 Male upki jakies mozna robic, wojsko, i atakowac sasiedni, eksplorowac.
 Sieciowo ? uuu jak :D
 Potrzebny Node.js express
+
+2. CSS loader jakis lepszy cos takiego jak Material ale nie chcemy materiala :D

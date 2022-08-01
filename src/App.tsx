@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './App.css';
-import Game from './components/Game';
+import Container from './components/Container';
+import Providers from './Providers';
 
 function App() {
-  return (
-    <div className="App">
-      <Game>
-        <div>Content</div>
-      </Game>
-    </div>
+  return useMemo(
+    () => (
+      <div className="App">
+        <Providers>
+          <Container />
+        </Providers>
+      </div>
+    ),
+    [],
   );
 }
 

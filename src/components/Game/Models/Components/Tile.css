@@ -1,0 +1,19 @@
+.Model_Component_Tile.fog {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.Model_Component_Tile.grass {
+  background-color: green;
+}
+
+.Model_Component_Tile.room {
+  background-color: #eeac7a;
+}
+
+.Model_Component_Tile.wall {
+  background-color: black;
+}
+
+.Model_Component_Tile.water {
+  background-color: aqua;
+}

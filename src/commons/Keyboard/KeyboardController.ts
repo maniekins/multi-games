@@ -47,6 +47,8 @@ export const KeyboardController: KeyboardControllerType = (callback, repeatTime)
       }
     }
 
+    // TODO: this prevented by scroll but probably now do nothing this is needed when scrolls appears, for example when the game mode is on
+    // Need to set some boolean and for example some shortcut exit this or entered
     event.preventDefault();
     return false;
   };

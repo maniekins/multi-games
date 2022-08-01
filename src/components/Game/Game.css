@@ -1,10 +1,6 @@
 .Game {
-  height: 100%;
-  width: 100%;
+  background-color: gray;
 
-  background-color: bisque;
-
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

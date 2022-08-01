@@ -87,6 +87,10 @@ export class KeysPressed {
   rightDown() {
     return this.keys.findIndex((k) => k.rightDown()) !== -1;
   }
+
+  pressed() {
+    return this.keys.length > 0;
+  }
 }
 
 export const mapKeys: MapKeysType = (keys, options = {}) => {

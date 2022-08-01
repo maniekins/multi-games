@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useMemo, useState } from 'react';
 import useKeyboardController, { KeysPressed, mapKeys } from '../../commons/Keyboard';
 
 type InitialStateType = {
@@ -23,7 +23,10 @@ export const KeyboardProvider: React.FC<ProviderProps> = ({ children }) => {
 
   useKeyboardController(keyboardCallback, 10);
 
-  return <KeyboardContext.Provider value={{ keyPressed }}>{children}</KeyboardContext.Provider>;
+  return useMemo(
+    () => <KeyboardContext.Provider value={{ keyPressed }}>{children}</KeyboardContext.Provider>,
+    [children, keyPressed],
+  );
 };
 
 export const useKeyboardContext = () => {
