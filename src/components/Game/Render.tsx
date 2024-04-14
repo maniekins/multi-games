@@ -7,6 +7,7 @@ import { MapSettingsType, MapSizeType } from './types';
 import TileModel, { TYPES } from './Models/Tile';
 import setVision from './Map/setVision';
 import { useGameContext } from '../../services/Game';
+import { useNPC } from './Objects/TestNPC/useNPC';
 // type RenderProps = {};
 
 const customMapSize: MapSizeType = { height: 30, width: 60 };
@@ -31,6 +32,12 @@ const Render: FunctionComponent = () => {
 
   const generatedMap = useMemo(() => getMap({ mapSize: customMapSize }), []);
   const player = usePlayer({
+    map: generatedMap,
+    modelSize: DEFAULT_MODELS_SIZE,
+    startedLocation: calculateStart(generatedMap, customMapSize),
+  });
+
+  const npc = useNPC({
     map: generatedMap,
     modelSize: DEFAULT_MODELS_SIZE,
     startedLocation: calculateStart(generatedMap, customMapSize),
@@ -116,6 +123,7 @@ const Render: FunctionComponent = () => {
                     visited={tile.visited}
                   >
                     {player.location.positionX === idx && player.location.positionY === idy ? player.component : null}
+                    {npc.location.positionX === idx && npc.location.positionY === idy ? npc.component : null}
                   </Tile>
                 );
               }
@@ -137,7 +145,7 @@ const Render: FunctionComponent = () => {
         {aR}
       </>
     );
-  }, [generatedMap, mapVision, player.component, player.location]);
+  }, [generatedMap, mapVision, npc.component, npc.location, player.component, player.location]);
   return useMemo(() => <div className="Render">{renderMap}</div>, [renderMap]);
 };
 

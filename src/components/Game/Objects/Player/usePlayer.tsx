@@ -2,15 +2,13 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useKeyboardContext } from '../../../../services/Keyboard';
 import { Player } from '../../Models/Components';
 import { Location, MapType } from '../../types';
+import { changeObjectLocation } from '../util';
 
 type Props = {
   map: MapType;
   modelSize: number;
   startedLocation?: Location;
 };
-
-const isLocationChanged = (loc1: Location, loc2: Location) =>
-  loc1.positionX !== loc2.positionX || loc1.positionY !== loc2.positionY;
 
 export const usePlayer = ({
   map,
@@ -22,96 +20,23 @@ export const usePlayer = ({
 }: Props) => {
   const { keyPressed } = useKeyboardContext();
   const [location, setLocation] = useState(startedLocation);
-  const [tt, setTT] = useState(false);
+  const [intervalBetweenMoves, setTT] = useState(false);
   const reference = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // let timeoutScroll: NodeJS.Timeout;
-    if (!tt && keyPressed.pressed()) {
+    if (!intervalBetweenMoves && keyPressed.pressed()) {
       setTT(true);
       setTimeout(() => {
         setTT(false);
+        // HERE WE HAVE A SPEED
       }, 100);
 
-      const changeLocation = (newLocation: Location) => {
-        if (isLocationChanged(newLocation, location) && !map[newLocation.positionY][newLocation.positionX].blocking) {
-          setLocation(newLocation);
-
-          // scroll window
-          setTimeout(() => {
-            reference.current?.scrollIntoView({ behavior: 'auto', block: 'center', inline: 'center' });
-          }, 100);
-
-          return true;
-        }
-        return false;
-      };
-      const newLocation = { ...location };
-      if (keyPressed.leftDown()) {
-        newLocation.positionY += 1;
-        newLocation.positionX -= 1;
-        if (!changeLocation(newLocation)) {
-          const newLocation1 = { ...location };
-          newLocation1.positionY += 1;
-          if (!changeLocation(newLocation1)) {
-            const newLocation2 = { ...location };
-            newLocation2.positionX -= 1;
-            !changeLocation(newLocation2);
-          }
-        }
-      } else if (keyPressed.leftUp()) {
-        newLocation.positionY -= 1;
-        newLocation.positionX -= 1;
-        if (!changeLocation(newLocation)) {
-          const newLocation1 = { ...location };
-          newLocation1.positionY -= 1;
-          if (!changeLocation(newLocation1)) {
-            const newLocation2 = { ...location };
-            newLocation2.positionX -= 1;
-            !changeLocation(newLocation2);
-          }
-        }
-      } else if (keyPressed.rightDown()) {
-        newLocation.positionY += 1;
-        newLocation.positionX += 1;
-        if (!changeLocation(newLocation)) {
-          const newLocation1 = { ...location };
-          newLocation1.positionY += 1;
-          if (!changeLocation(newLocation1)) {
-            const newLocation2 = { ...location };
-            newLocation2.positionX += 1;
-            !changeLocation(newLocation2);
-          }
-        }
-      } else if (keyPressed.rightUp()) {
-        newLocation.positionY -= 1;
-        newLocation.positionX += 1;
-        if (!changeLocation(newLocation)) {
-          const newLocation1 = { ...location };
-          newLocation1.positionY -= 1;
-          if (!changeLocation(newLocation1)) {
-            const newLocation2 = { ...location };
-            newLocation2.positionX += 1;
-            !changeLocation(newLocation2);
-          }
-        }
-      } else if (keyPressed.up()) {
-        newLocation.positionY -= 1;
-        changeLocation(newLocation);
-      } else if (keyPressed.down()) {
-        newLocation.positionY += 1;
-        changeLocation(newLocation);
-      } else if (keyPressed.left()) {
-        newLocation.positionX -= 1;
-        changeLocation(newLocation);
-      } else if (keyPressed.right()) {
-        newLocation.positionX += 1;
-        changeLocation(newLocation);
-      }
+      changeObjectLocation(location, map, setLocation, keyPressed);
     }
 
+    // Changing location trigger this all the time :/ gmm need to use something better :)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [keyPressed, tt]);
+  }, [keyPressed, intervalBetweenMoves]);
 
   useEffect(() => {
     console.log('location changed');
