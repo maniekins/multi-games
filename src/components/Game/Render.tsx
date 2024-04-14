@@ -37,7 +37,8 @@ const Render: FunctionComponent = () => {
   });
 
   const renderMap = useMemo(() => {
-    setVision(generatedMap, player.location, mapVision > 0 ? mapVision - 3 : 8);
+    const calculactedForVision = mapVision > 0 ? (mapVision - 5 <= 0 ? mapVision : mapVision - 3) : 8;
+    setVision(generatedMap, player.location, calculactedForVision);
     const beforeRow = () => {
       let rows = null;
       if (mapVision && player.location.positionY < mapVision) {

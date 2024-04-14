@@ -32,18 +32,81 @@ export const usePlayer = ({
       setTimeout(() => {
         setTT(false);
       }, 100);
-      const newLocation = { ...location };
-      keyPressed.up() && (newLocation.positionY -= 1);
-      keyPressed.down() && (newLocation.positionY += 1);
-      keyPressed.left() && (newLocation.positionX -= 1);
-      keyPressed.right() && (newLocation.positionX += 1);
-      if (isLocationChanged(newLocation, location) && !map[newLocation.positionY][newLocation.positionX].blocking) {
-        setLocation(newLocation);
 
-        // scroll window
-        setTimeout(() => {
-          reference.current?.scrollIntoView({ behavior: 'auto', block: 'center', inline: 'center' });
-        }, 100);
+      const changeLocation = (newLocation: Location) => {
+        if (isLocationChanged(newLocation, location) && !map[newLocation.positionY][newLocation.positionX].blocking) {
+          setLocation(newLocation);
+
+          // scroll window
+          setTimeout(() => {
+            reference.current?.scrollIntoView({ behavior: 'auto', block: 'center', inline: 'center' });
+          }, 100);
+
+          return true;
+        }
+        return false;
+      };
+      const newLocation = { ...location };
+      if (keyPressed.leftDown()) {
+        newLocation.positionY += 1;
+        newLocation.positionX -= 1;
+        if (!changeLocation(newLocation)) {
+          const newLocation1 = { ...location };
+          newLocation1.positionY += 1;
+          if (!changeLocation(newLocation1)) {
+            const newLocation2 = { ...location };
+            newLocation2.positionX -= 1;
+            !changeLocation(newLocation2);
+          }
+        }
+      } else if (keyPressed.leftUp()) {
+        newLocation.positionY -= 1;
+        newLocation.positionX -= 1;
+        if (!changeLocation(newLocation)) {
+          const newLocation1 = { ...location };
+          newLocation1.positionY -= 1;
+          if (!changeLocation(newLocation1)) {
+            const newLocation2 = { ...location };
+            newLocation2.positionX -= 1;
+            !changeLocation(newLocation2);
+          }
+        }
+      } else if (keyPressed.rightDown()) {
+        newLocation.positionY += 1;
+        newLocation.positionX += 1;
+        if (!changeLocation(newLocation)) {
+          const newLocation1 = { ...location };
+          newLocation1.positionY += 1;
+          if (!changeLocation(newLocation1)) {
+            const newLocation2 = { ...location };
+            newLocation2.positionX += 1;
+            !changeLocation(newLocation2);
+          }
+        }
+      } else if (keyPressed.rightUp()) {
+        newLocation.positionY -= 1;
+        newLocation.positionX += 1;
+        if (!changeLocation(newLocation)) {
+          const newLocation1 = { ...location };
+          newLocation1.positionY -= 1;
+          if (!changeLocation(newLocation1)) {
+            const newLocation2 = { ...location };
+            newLocation2.positionX += 1;
+            !changeLocation(newLocation2);
+          }
+        }
+      } else if (keyPressed.up()) {
+        newLocation.positionY -= 1;
+        changeLocation(newLocation);
+      } else if (keyPressed.down()) {
+        newLocation.positionY += 1;
+        changeLocation(newLocation);
+      } else if (keyPressed.left()) {
+        newLocation.positionX -= 1;
+        changeLocation(newLocation);
+      } else if (keyPressed.right()) {
+        newLocation.positionX += 1;
+        changeLocation(newLocation);
       }
     }
 
