@@ -57,7 +57,7 @@ const addWater = (map: MapType, mapSettings?: MapSettingsType): MapType => {
             });
           }
         }
-      } catch (e) {
+      } catch {
         console.log('ERROR with adding WATER');
         console.log('findCenterX', findCenterX, 'findCenterY', findCenterY);
         console.log('width', width, 'height', height);
@@ -118,7 +118,7 @@ const createRooms: createRoomsType = ({ map, mapSettings }) => {
           map[startY][startX] = new TileModel({ blocking: false, id: `${startY}-${startX}`, type: TYPES.ROOM });
         }
       }
-    } catch (e) {
+    } catch {
       console.log('ERROR');
       console.log('mapWidth', mapWidth, 'mapHeight', mapHeight);
       console.log('findCenterX', findCenterX, 'findCenterY', findCenterY);

@@ -17,7 +17,7 @@ type ProviderProps = {
 export const KeyboardProvider: React.FC<ProviderProps> = ({ children }) => {
   const [keyPressed, setKeyPressed] = useState<KeysPressed>(new KeysPressed([]));
 
-  const keyboardCallback = useCallback(({ keys }) => {
+  const keyboardCallback = useCallback(({ keys }: { keys: string[] }) => {
     setKeyPressed(mapKeys(keys, { arrows: true }));
   }, []);
 

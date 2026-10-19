@@ -20,7 +20,7 @@ export const KeyboardController: KeyboardControllerType = (callback, repeatTime)
   let keysPressed: keysPressedType = {};
   let keysPressedCode: keysPressedCodeType = {};
   let sortedKeys: keysType = [];
-  let interval: NodeJS.Timer;
+  let interval: ReturnType<typeof setInterval>;
 
   const keydownHandler = (event: KeyboardEvent) => {
     const key = (event || window.event).code;

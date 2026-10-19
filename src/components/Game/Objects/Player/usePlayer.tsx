@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useKeyboardContext } from '../../../../services/Keyboard';
 import { Player } from '../../Models/Components';
 import { Location, MapType } from '../../types';
@@ -21,7 +21,6 @@ export const usePlayer = ({
   const { keyPressed } = useKeyboardContext();
   const [location, setLocation] = useState(startedLocation);
   const [intervalBetweenMoves, setTT] = useState(false);
-  const reference = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!intervalBetweenMoves && keyPressed.pressed()) {
@@ -44,7 +43,7 @@ export const usePlayer = ({
 
   return useMemo(
     () => ({
-      component: <Player modelSize={modelSize} elementRef={reference} />,
+      component: <Player modelSize={modelSize} />,
       location,
     }),
     [location, modelSize],

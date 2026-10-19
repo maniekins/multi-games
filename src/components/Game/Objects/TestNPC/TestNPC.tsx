@@ -20,10 +20,10 @@ const TestNPC: FunctionComponent<Props> = ({
 
   useEffect(() => {
     const newLocation = { ...location };
-    keyPressed.up() && (newLocation.top -= 10);
-    keyPressed.down() && (newLocation.top += 10);
-    keyPressed.left() && (newLocation.left -= 10);
-    keyPressed.right() && (newLocation.left += 10);
+    if (keyPressed.up()) newLocation.top -= 10;
+    if (keyPressed.down()) newLocation.top += 10;
+    if (keyPressed.left()) newLocation.left -= 10;
+    if (keyPressed.right()) newLocation.left += 10;
     setLocation(newLocation);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyPressed]);
