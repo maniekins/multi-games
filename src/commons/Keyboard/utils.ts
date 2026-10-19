@@ -102,28 +102,44 @@ export const mapKeys: MapKeysType = (keys, options = {}) => {
       let k;
       switch (key) {
         case 'ArrowLeft':
-          (onlyArrow || allDirections) && (k = DIRECTIONS.LEFT);
+          if (onlyArrow || allDirections) {
+            k = DIRECTIONS.LEFT;
+          }
           break;
         case 'KeyA': //A
-          (onlyWsad || allDirections) && (k = DIRECTIONS.LEFT);
+          if (onlyWsad || allDirections) {
+            k = DIRECTIONS.LEFT;
+          }
           break;
         case 'ArrowRight':
-          (onlyArrow || allDirections) && (k = DIRECTIONS.RIGHT);
+          if (onlyArrow || allDirections) {
+            k = DIRECTIONS.RIGHT;
+          }
           break;
         case 'KeyD': //D
-          (onlyWsad || allDirections) && (k = DIRECTIONS.RIGHT);
+          if (onlyWsad || allDirections) {
+            k = DIRECTIONS.RIGHT;
+          }
           break;
         case 'ArrowDown':
-          (onlyArrow || allDirections) && (k = DIRECTIONS.DOWN);
+          if (onlyArrow || allDirections) {
+            k = DIRECTIONS.DOWN;
+          }
           break;
         case 'KeyS': //S
-          (onlyWsad || allDirections) && (k = DIRECTIONS.DOWN);
+          if (onlyWsad || allDirections) {
+            k = DIRECTIONS.DOWN;
+          }
           break;
         case 'ArrowUp':
-          (onlyArrow || allDirections) && (k = DIRECTIONS.UP);
+          if (onlyArrow || allDirections) {
+            k = DIRECTIONS.UP;
+          }
           break;
         case 'KeyW': //W
-          (onlyWsad || allDirections) && (k = DIRECTIONS.UP);
+          if (onlyWsad || allDirections) {
+            k = DIRECTIONS.UP;
+          }
           break;
         default:
           k = key;

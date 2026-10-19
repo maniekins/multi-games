@@ -1,3 +1,4 @@
+import React from 'react';
 import { KeysPressed } from '../../../commons/Keyboard';
 import { Location, MapType } from '../types';
 
@@ -18,7 +19,9 @@ export const changeObjectLocation = (
     }
     return false;
   };
+
   const newLocation = { ...location };
+
   if (whereWeGo.leftDown()) {
     newLocation.positionY += 1;
     newLocation.positionX -= 1;
@@ -28,7 +31,7 @@ export const changeObjectLocation = (
       if (!changeLocation(newLocation1)) {
         const newLocation2 = { ...location };
         newLocation2.positionX -= 1;
-        !changeLocation(newLocation2);
+        // !changeLocation(newLocation2);
       }
     }
   } else if (whereWeGo.leftUp()) {
@@ -40,7 +43,7 @@ export const changeObjectLocation = (
       if (!changeLocation(newLocation1)) {
         const newLocation2 = { ...location };
         newLocation2.positionX -= 1;
-        !changeLocation(newLocation2);
+        // !changeLocation(newLocation2);
       }
     }
   } else if (whereWeGo.rightDown()) {
@@ -52,7 +55,7 @@ export const changeObjectLocation = (
       if (!changeLocation(newLocation1)) {
         const newLocation2 = { ...location };
         newLocation2.positionX += 1;
-        !changeLocation(newLocation2);
+        // !changeLocation(newLocation2);
       }
     }
   } else if (whereWeGo.rightUp()) {
@@ -64,7 +67,7 @@ export const changeObjectLocation = (
       if (!changeLocation(newLocation1)) {
         const newLocation2 = { ...location };
         newLocation2.positionX += 1;
-        !changeLocation(newLocation2);
+        // !changeLocation(newLocation2);
       }
     }
   } else if (whereWeGo.up()) {
