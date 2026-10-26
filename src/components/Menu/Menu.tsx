@@ -1,16 +1,31 @@
 import React, { useMemo } from 'react';
 import { useViewActions } from '../../services/View';
+import './Menu.css';
 
 const Menu = () => {
-  const { setViewRougelike } = useViewActions();
-  console.log('xMenu');
+  const { setViewRougelike, setViewArithmetic, setViewSnake } = useViewActions();
   return useMemo(
     () => (
-      <div>
-        <button onClick={setViewRougelike}>Enter The Rougelike</button>
-      </div>
+      <main className="Menu">
+        <section className="Menu__panel" aria-labelledby="menu-title">
+          <p className="Menu__eyebrow">MAŁE GRY, WIELKA ZABAWA</p>
+          <h1 id="menu-title">Wybierz grę</h1>
+          <div className="Menu__choices">
+            <button className="Menu__choice Menu__choice--math" onClick={setViewArithmetic}>
+              <span aria-hidden="true">＋ −</span>
+              Dodawaj, odejmuj
+            </button>
+            <button className="Menu__choice Menu__choice--snake" onClick={setViewSnake}>
+              Snake
+            </button>
+            <button className="Menu__choice Menu__choice--roguelike" onClick={setViewRougelike}>
+              Enter The Rougelike
+            </button>
+          </div>
+        </section>
+      </main>
     ),
-    [setViewRougelike],
+    [setViewArithmetic, setViewRougelike, setViewSnake],
   );
 };
 

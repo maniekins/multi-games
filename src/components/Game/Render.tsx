@@ -8,11 +8,12 @@ import TileModel, { TYPES } from './Models/Tile';
 import setVision from './Map/setVision';
 import { useGameContext } from '../../services/Game';
 import { useNPC } from './Objects/TestNPC/useNPC';
+import { DEFAULT_AMOUNT_OF_ROOMS, DEFAULT_MAP_HEIGHT, DEFAULT_MAP_WIDTH } from '../../services/Game';
 // type RenderProps = {};
 
-const customMapSize: MapSizeType = { height: 30, width: 60 };
+export const customMapSize: MapSizeType = { height: DEFAULT_MAP_HEIGHT, width: DEFAULT_MAP_WIDTH };
 export const customMapSettings: MapSettingsType = {
-  amountOfRooms: 3,
+  amountOfRooms: DEFAULT_AMOUNT_OF_ROOMS,
   rooms: [
     { centerX: 27, centerY: 3, height: 3, width: 3 },
     { centerX: 8, centerY: 8, height: 3, width: 5 },
@@ -27,20 +28,24 @@ const DEFAULT_MODELS_SIZE = 20;
 
 const Render: FunctionComponent = () => {
   // think about add this to some context
-  const { mapVision } = useGameContext();
-  // const generatedMap = useMemo(() => getMap({ mapSettings: customMapSettings, mapSize: customMapSize }), []);
+  const { mapVision, mapWidth, mapHeight, amountOfRooms } = useGameContext();
+  const mapSize = useMemo(() => ({ height: mapHeight, width: mapWidth }), [mapHeight, mapWidth]);
+  const mapSettings = useMemo<MapSettingsType>(() => ({ amountOfRooms }), [amountOfRooms]);
 
-  const generatedMap = useMemo(() => getMap({ mapSize: customMapSize }), []);
+  const generatedMap = useMemo(() => getMap({ mapSettings, mapSize }), [mapSettings, mapSize]);
+
+  // Only for testing purposes, to see how the map looks like without any vision restrictions.
+  // const generatedMap = useMemo(() => getMap({ mapSettings: customMapSettings, mapSize: customMapSize }), []);
   const player = usePlayer({
     map: generatedMap,
     modelSize: DEFAULT_MODELS_SIZE,
-    startedLocation: calculateStart(generatedMap, customMapSize),
+    startedLocation: calculateStart(generatedMap, mapSize),
   });
 
   const npc = useNPC({
     map: generatedMap,
     modelSize: DEFAULT_MODELS_SIZE,
-    startedLocation: calculateStart(generatedMap, customMapSize),
+    startedLocation: calculateStart(generatedMap, mapSize),
   });
 
   const renderMap = useMemo(() => {
@@ -68,9 +73,9 @@ const Render: FunctionComponent = () => {
 
     const afterRow = () => {
       let rows = null;
-      if (mapVision && player.location.positionY + mapVision >= customMapSize.height) {
+      if (mapVision && player.location.positionY + mapVision >= mapSize.height) {
         rows = [];
-        for (let i = 0; i < player.location.positionY + mapVision - customMapSize.height; i++) {
+        for (let i = 0; i < player.location.positionY + mapVision - mapSize.height; i++) {
           rows[i] = new Array(player.location.positionX + mapVision);
           for (let j = 0; j < mapVision * 2 - 1; j++) {
             rows[i][j] = new TileModel({ blocking: true, id: `afterFog-${i}-${j}`, type: TYPES.FOG });
@@ -96,9 +101,9 @@ const Render: FunctionComponent = () => {
         }
       }
       let afterColumn;
-      if (mapVision && player.location.positionX + mapVision >= customMapSize.width) {
+      if (mapVision && player.location.positionX + mapVision >= mapSize.width) {
         afterColumn = [];
-        for (let j = 0; j < player.location.positionX + mapVision - customMapSize.width; j++) {
+        for (let j = 0; j < player.location.positionX + mapVision - mapSize.width; j++) {
           afterColumn[j] = new TileModel({ blocking: true, id: `afterColFog-${idy}-${j}`, type: TYPES.FOG });
         }
       }
@@ -114,6 +119,17 @@ const Render: FunctionComponent = () => {
                 !mapVision ||
                 (player.location.positionX - mapVision < idx && player.location.positionX + mapVision > idx)
               ) {
+                const occupants: React.ReactNode[] = [];
+                if (player.location.positionX === idx && player.location.positionY === idy) {
+                  occupants.push(<React.Fragment key="player">{player.component}</React.Fragment>);
+                }
+                if (npc.location.positionX === idx && npc.location.positionY === idy) {
+                  occupants.push(<React.Fragment key="npc">{npc.component}</React.Fragment>);
+                }
+
+                const occupantColumns = Math.ceil(Math.sqrt(Math.max(occupants.length, 1)));
+                const occupantRows = Math.ceil(Math.max(occupants.length, 1) / occupantColumns);
+
                 return (
                   <Tile
                     key={tile.id}
@@ -122,8 +138,19 @@ const Render: FunctionComponent = () => {
                     visible={tile.visible}
                     visited={tile.visited}
                   >
-                    {player.location.positionX === idx && player.location.positionY === idy ? player.component : null}
-                    {npc.location.positionX === idx && npc.location.positionY === idy ? npc.component : null}
+                    {occupants.length > 1 ? (
+                      <div
+                        className="Render__occupants"
+                        style={{
+                          gridTemplateColumns: `repeat(${occupantColumns}, minmax(0, 1fr))`,
+                          gridTemplateRows: `repeat(${occupantRows}, minmax(0, 1fr))`,
+                        }}
+                      >
+                        {occupants}
+                      </div>
+                    ) : (
+                      (occupants[0] ?? null)
+                    )}
                   </Tile>
                 );
               }
@@ -145,7 +172,7 @@ const Render: FunctionComponent = () => {
         {aR}
       </>
     );
-  }, [generatedMap, mapVision, npc.component, npc.location, player.component, player.location]);
+  }, [generatedMap, mapSize, mapVision, npc.component, npc.location, player.component, player.location]);
   return useMemo(() => <div className="Render">{renderMap}</div>, [renderMap]);
 };
 

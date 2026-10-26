@@ -24,7 +24,7 @@ const Tile: FunctionComponent<ModelComponentType & TileProps> = ({
 
   const styles = useMemo(
     () => ({
-      boxShadow: visible ? `inset 0 0 ${modelSize / 4}px gold` : 'none',
+      boxShadow: visible ? `inset 0 0 ${modelSize / 4}px var(--color-highlight)` : 'none',
       height: modelSize,
       margin: modelSize / 10,
       width: modelSize,

@@ -12,7 +12,10 @@ export const changeObjectLocation = (
   whereWeGo: KeysPressed,
 ) => {
   const changeLocation = (newLocation: Location) => {
-    if (isLocationChanged(newLocation, location) && !map[newLocation.positionY][newLocation.positionX].blocking) {
+    const row = map[newLocation.positionY];
+    const tile = row?.[newLocation.positionX];
+
+    if (tile && isLocationChanged(newLocation, location) && !tile.blocking) {
       setLocation(newLocation);
 
       return true;
@@ -20,67 +23,27 @@ export const changeObjectLocation = (
     return false;
   };
 
-  const newLocation = { ...location };
+  const tryMove = (deltaX: number, deltaY: number) =>
+    changeLocation({
+      positionX: location.positionX + deltaX,
+      positionY: location.positionY + deltaY,
+    });
 
   if (whereWeGo.leftDown()) {
-    newLocation.positionY += 1;
-    newLocation.positionX -= 1;
-    if (!changeLocation(newLocation)) {
-      const newLocation1 = { ...location };
-      newLocation1.positionY += 1;
-      if (!changeLocation(newLocation1)) {
-        const newLocation2 = { ...location };
-        newLocation2.positionX -= 1;
-        // !changeLocation(newLocation2);
-      }
-    }
+    if (!tryMove(-1, 1) && !tryMove(0, 1)) tryMove(-1, 0);
   } else if (whereWeGo.leftUp()) {
-    newLocation.positionY -= 1;
-    newLocation.positionX -= 1;
-    if (!changeLocation(newLocation)) {
-      const newLocation1 = { ...location };
-      newLocation1.positionY -= 1;
-      if (!changeLocation(newLocation1)) {
-        const newLocation2 = { ...location };
-        newLocation2.positionX -= 1;
-        // !changeLocation(newLocation2);
-      }
-    }
+    if (!tryMove(-1, -1) && !tryMove(0, -1)) tryMove(-1, 0);
   } else if (whereWeGo.rightDown()) {
-    newLocation.positionY += 1;
-    newLocation.positionX += 1;
-    if (!changeLocation(newLocation)) {
-      const newLocation1 = { ...location };
-      newLocation1.positionY += 1;
-      if (!changeLocation(newLocation1)) {
-        const newLocation2 = { ...location };
-        newLocation2.positionX += 1;
-        // !changeLocation(newLocation2);
-      }
-    }
+    if (!tryMove(1, 1) && !tryMove(0, 1)) tryMove(1, 0);
   } else if (whereWeGo.rightUp()) {
-    newLocation.positionY -= 1;
-    newLocation.positionX += 1;
-    if (!changeLocation(newLocation)) {
-      const newLocation1 = { ...location };
-      newLocation1.positionY -= 1;
-      if (!changeLocation(newLocation1)) {
-        const newLocation2 = { ...location };
-        newLocation2.positionX += 1;
-        // !changeLocation(newLocation2);
-      }
-    }
+    if (!tryMove(1, -1) && !tryMove(0, -1)) tryMove(1, 0);
   } else if (whereWeGo.up()) {
-    newLocation.positionY -= 1;
-    changeLocation(newLocation);
+    tryMove(0, -1);
   } else if (whereWeGo.down()) {
-    newLocation.positionY += 1;
-    changeLocation(newLocation);
+    tryMove(0, 1);
   } else if (whereWeGo.left()) {
-    newLocation.positionX -= 1;
-    changeLocation(newLocation);
+    tryMove(-1, 0);
   } else if (whereWeGo.right()) {
-    newLocation.positionX += 1;
-    changeLocation(newLocation);
+    tryMove(1, 0);
   }
 };

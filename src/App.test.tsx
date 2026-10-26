@@ -1,16 +1,19 @@
 import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/vitest';
 import { test, expect } from 'vitest';
 import App from './App';
 
-test('wyświetla nagłówek aplikacji', () => {
-  const { getByRole } = render(<App />);
+test('otwiera grę matematyczną z menu i pozwala wrócić', () => {
+  const { container } = render(<App />);
 
-  expect(getByRole('heading', { name: 'Witaj w aplikacji' })).toBeInTheDocument();
-});
+  container.querySelector<HTMLButtonElement>('.Menu__choice--math')?.click();
+  expect(container.textContent).toContain('Liczba pytań na poziom');
 
-test('wyświetla przycisk', () => {
-  const { getByRole } = render(<App />);
+  container.querySelector<HTMLButtonElement>('.ArithmeticGame__start')?.click();
+  expect(container.textContent).toContain('Ile to jest?');
+  expect(container.textContent).toContain('PUNKTY');
 
-  expect(getByRole('button', { name: 'Kliknij mnie' })).toBeInTheDocument();
+  container.querySelector<HTMLButtonElement>('.ArithmeticGame__back')?.click();
+  expect(container.textContent).toContain('Liczba pytań na poziom');
+  container.querySelector<HTMLButtonElement>('.ArithmeticGame__back')?.click();
+  expect(container.textContent).toContain('Wybierz grę');
 });

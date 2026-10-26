@@ -23,6 +23,13 @@ export const KeyboardController: KeyboardControllerType = (callback, repeatTime)
   let interval: ReturnType<typeof setInterval>;
 
   const keydownHandler = (event: KeyboardEvent) => {
+    if (
+      event.target instanceof HTMLElement &&
+      event.target.closest('input, textarea, select, [contenteditable="true"]')
+    ) {
+      return;
+    }
+
     const key = (event || window.event).code;
     const metaKey = (event || window.event).metaKey;
     // const shiftKey = (event || window.event).shiftKey;

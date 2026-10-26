@@ -1,0 +1,263 @@
+.ArithmeticGame {
+  width: 100%;
+  min-height: 100vh;
+  padding: var(--space-2xl);
+  color: var(--color-ink);
+}
+
+.ArithmeticGame__topbar {
+  display: flex;
+  max-width: var(--width-content);
+  min-height: calc(var(--control-height) + 4px);
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin: 0 auto var(--space-4xl);
+}
+
+.ArithmeticGame__back {
+  padding: var(--space-sm-plus) var(--space-md-plus);
+  border: var(--border-ui);
+  border-radius: var(--radius-control);
+  background: var(--color-paper);
+  color: inherit;
+  font: inherit;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.ArithmeticGame__game-name {
+  font-family: var(--font-display);
+  font-size: var(--font-size-subtitle);
+  font-weight: var(--font-weight-bold);
+}
+
+.ArithmeticGame__settings {
+  width: min(100%, var(--width-panel));
+  margin: 0 auto;
+  padding: var(--space-4xl);
+  border: var(--border-ui);
+  border-radius: var(--radius-panel);
+  background: var(--color-paper);
+  box-shadow: var(--shadow-panel);
+  text-align: left;
+}
+
+.ArithmeticGame__settings-eyebrow {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-rust);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-heavy);
+}
+
+.ArithmeticGame__settings h1 {
+  margin: 0 0 var(--space-3xl);
+  font-family: var(--font-display);
+  font-size: var(--font-size-title);
+}
+
+.ArithmeticGame__settings label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.ArithmeticGame__settings-control {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.ArithmeticGame__settings-control input {
+  width: var(--width-number-input);
+  padding: var(--space-sm-plus);
+  border: var(--border-ui);
+  border-radius: var(--radius-control);
+  color: inherit;
+  font: inherit;
+  font-size: var(--font-size-control);
+}
+
+.ArithmeticGame__settings-hint {
+  margin: var(--space-sm-plus) 0 var(--space-2xl);
+  color: var(--color-muted);
+  line-height: var(--line-height-copy);
+}
+
+.ArithmeticGame__start {
+  width: 100%;
+  min-height: var(--control-height-large);
+  padding: var(--space-md) var(--space-xl);
+  border: var(--border-ui);
+  border-radius: var(--radius-control);
+  background: var(--color-sun);
+  color: var(--color-ink);
+  font: inherit;
+  font-weight: var(--font-weight-heavy);
+  cursor: pointer;
+}
+
+.ArithmeticGame__start:focus-visible,
+.ArithmeticGame__settings-control input:focus-visible {
+  outline: var(--outline-focus);
+  outline-offset: var(--outline-focus-offset);
+}
+
+.ArithmeticGame__board {
+  width: min(100%, var(--width-panel));
+  margin: 0 auto;
+  padding: var(--space-4xl);
+  border: var(--border-ui);
+  border-radius: var(--radius-panel);
+  background: var(--color-paper);
+  box-shadow: var(--shadow-panel);
+}
+
+.ArithmeticGame__stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ArithmeticGame__stats > div {
+  display: grid;
+  gap: var(--space-xs);
+  text-align: left;
+}
+
+.ArithmeticGame__stats strong {
+  font-family: var(--font-display);
+  font-size: var(--font-size-title);
+}
+
+.ArithmeticGame__stats strong span {
+  color: var(--color-muted-light);
+  font-family: var(--font-data);
+  font-size: var(--font-size-base);
+}
+
+.ArithmeticGame__stat-label {
+  color: var(--color-rust);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-heavy);
+  letter-spacing: var(--letter-spacing-label);
+}
+
+.ArithmeticGame__score {
+  text-align: right !important;
+}
+
+.ArithmeticGame__progress {
+  height: var(--progress-height);
+  margin-top: 18px;
+  overflow: hidden;
+  border: var(--border-ui-thin);
+  border-radius: var(--radius-panel);
+  background: var(--color-progress-track);
+}
+
+.ArithmeticGame__progress > div {
+  height: 100%;
+  background: var(--color-progress-fill);
+  transition: width 180ms ease-out;
+}
+
+.ArithmeticGame__progress-label {
+  min-height: 1.25em;
+  margin: var(--space-sm) 0 0;
+  color: var(--color-muted);
+  font-size: var(--font-size-reading);
+  text-align: right;
+}
+
+.ArithmeticGame__challenge {
+  margin: var(--space-challenge-top) 0 var(--space-challenge-bottom);
+}
+
+.ArithmeticGame__challenge > p {
+  margin: 0 0 var(--space-md);
+  color: var(--color-rust);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-heavy);
+}
+
+.ArithmeticGame__expression {
+  min-height: 1.4em;
+  font-family: var(--font-display);
+  font-size: var(--font-size-equation);
+  font-weight: var(--font-weight-bold);
+  overflow-wrap: anywhere;
+}
+
+.ArithmeticGame__form {
+  text-align: left;
+}
+
+.ArithmeticGame__form label {
+  display: block;
+  margin-bottom: var(--space-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.ArithmeticGame__answer-row {
+  display: flex;
+  gap: var(--space-sm-plus);
+}
+
+.ArithmeticGame__answer-row input {
+  width: var(--width-answer-input);
+  min-width: 0;
+  flex: 1;
+  padding: var(--space-md);
+  border: var(--border-ui);
+  border-radius: var(--radius-control);
+  background: var(--color-white);
+  color: inherit;
+  font: inherit;
+  font-size: var(--font-size-subtitle);
+}
+
+.ArithmeticGame__answer-row input:focus-visible,
+.ArithmeticGame__back:focus-visible,
+.ArithmeticGame__answer-row button:focus-visible {
+  outline: var(--outline-focus);
+  outline-offset: var(--outline-focus-offset);
+}
+
+.ArithmeticGame__answer-row button {
+  padding: var(--space-md) var(--space-xl);
+  border: var(--border-ui);
+  border-radius: var(--radius-control);
+  background: var(--color-sun);
+  color: var(--color-ink);
+  font: inherit;
+  font-weight: var(--font-weight-heavy);
+  cursor: pointer;
+}
+
+.ArithmeticGame__feedback {
+  min-height: 1.5em;
+  margin: var(--space-md-plus) 0 0;
+  color: var(--color-muted);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 480px) {
+  .ArithmeticGame {
+    padding: var(--space-lg);
+  }
+
+  .ArithmeticGame__topbar {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .ArithmeticGame__board,
+  .ArithmeticGame__settings {
+    padding: var(--space-2xl) var(--space-xl);
+  }
+
+  .ArithmeticGame__answer-row button {
+    padding-right: var(--space-md-plus);
+    padding-left: var(--space-md-plus);
+  }
+}

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useMemo, useState } from 'react';
+import React, { FunctionComponent, useCallback, useMemo, useState } from 'react';
 import { KeyboardProvider } from '../../services/Keyboard';
 import { useViewActions } from '../../services/View';
 import './Game.css';
@@ -14,26 +14,34 @@ const Game: FunctionComponent<GameProps> = () => {
   const { setViewMenu } = useViewActions();
   const [showGame, setShowGame] = useState(false);
 
+  const startGame = useCallback(() => setShowGame(true), []);
+
   return useMemo(
     () => (
-      <div>
-        <div className="Game">
-          <button onClick={setViewMenu}>BACK TO MENU</button>
-          <button onClick={() => setShowGame((prev) => !prev)}>{`${
-            showGame ? 'BACK TO OPTIONS' : 'SHOW GAME'
-          }`}</button>
-
-          {showGame ? (
-            <KeyboardProvider>
-              <Render />
-            </KeyboardProvider>
-          ) : (
-            <Options />
+      <main className="Game">
+        <nav className="Game__toolbar" aria-label="Menu roguelike'a">
+          <button className="Game__button" type="button" onClick={setViewMenu}>
+            ← Wróć do menu
+          </button>
+          {showGame && (
+            <button className="Game__button Game__button--primary" type="button" onClick={() => setShowGame(false)}>
+              Ustawienia
+            </button>
           )}
-        </div>
-      </div>
+        </nav>
+
+        {showGame ? (
+          <KeyboardProvider>
+            <div className="Game__render-viewport">
+              <Render />
+            </div>
+          </KeyboardProvider>
+        ) : (
+          <Options onStart={startGame} />
+        )}
+      </main>
     ),
-    [setViewMenu, showGame],
+    [setViewMenu, showGame, startGame],
   );
 };
 
