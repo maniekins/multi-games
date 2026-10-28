@@ -5,12 +5,14 @@ export enum VIEW_CONTEXT {
   ROUGELIKE,
   ARITHMETIC,
   SNAKE,
+  MEMORY,
 }
 type StateType = {
   isViewMenu: boolean;
   isViewRougelike: boolean;
   isViewArithmetic: boolean;
   isViewSnake: boolean;
+  isViewMemory: boolean;
   view: VIEW_CONTEXT;
 };
 
@@ -19,10 +21,15 @@ const initialState: StateType = {
   isViewRougelike: false,
   isViewArithmetic: false,
   isViewSnake: false,
+  isViewMemory: false,
   view: VIEW_CONTEXT.MENU,
 };
 type Action =
-  { type: 'setViewMenu' } | { type: 'setViewRougelike' } | { type: 'setViewArithmetic' } | { type: 'setViewSnake' };
+  | { type: 'setViewMenu' }
+  | { type: 'setViewRougelike' }
+  | { type: 'setViewArithmetic' }
+  | { type: 'setViewSnake' }
+  | { type: 'setViewMemory' };
 type Dispatch = (action: Action) => void;
 const ViewContext = React.createContext<{ state: StateType; dispatch: Dispatch } | undefined>(undefined);
 
@@ -37,6 +44,7 @@ function getNewView(view: VIEW_CONTEXT) {
     isViewRougelike: view === VIEW_CONTEXT.ROUGELIKE,
     isViewArithmetic: view === VIEW_CONTEXT.ARITHMETIC,
     isViewSnake: view === VIEW_CONTEXT.SNAKE,
+    isViewMemory: view === VIEW_CONTEXT.MEMORY,
     view,
   };
 }
@@ -54,6 +62,9 @@ function viewReducer(state: StateType, action: Action) {
     }
     case 'setViewSnake': {
       return { ...state, ...getNewView(VIEW_CONTEXT.SNAKE) };
+    }
+    case 'setViewMemory': {
+      return { ...state, ...getNewView(VIEW_CONTEXT.MEMORY) };
     }
     default: {
       throw new Error(`Unhandled action type: ${action}`);
@@ -91,6 +102,7 @@ export const useViewActions = () => {
       setViewRougelike: () => dispatch({ type: 'setViewRougelike' }),
       setViewArithmetic: () => dispatch({ type: 'setViewArithmetic' }),
       setViewSnake: () => dispatch({ type: 'setViewSnake' }),
+      setViewMemory: () => dispatch({ type: 'setViewMemory' }),
     }),
     [dispatch],
   );

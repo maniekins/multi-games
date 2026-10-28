@@ -59,6 +59,10 @@
   background: var(--color-canvas-pattern);
 }
 
+.Menu__choice--memory {
+  background: var(--color-memory);
+}
+
 .Menu__choice--math span {
   font-family: var(--font-display);
   font-size: var(--font-size-icon);
