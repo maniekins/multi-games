@@ -5,12 +5,13 @@ import ArithmeticGame from '../ArithmeticGame';
 import Game from '../Game';
 import Menu from '../Menu';
 import SnakeGame from '../SnakeGame';
+import MemoryGame from '../MemoryGame';
 
 type ContainerProps = {
   children?: React.ReactNode;
 };
 const Container: FunctionComponent<ContainerProps> = () => {
-  const { isViewMenu, isViewRougelike, isViewArithmetic, isViewSnake } = useViewContext();
+  const { isViewMenu, isViewRougelike, isViewArithmetic, isViewSnake, isViewMemory } = useViewContext();
   return useMemo(
     () => (
       <>
@@ -18,10 +19,11 @@ const Container: FunctionComponent<ContainerProps> = () => {
         {isViewRougelike && <Game />}
         {isViewArithmetic && <ArithmeticGame />}
         {isViewSnake && <SnakeGame />}
+        {isViewMemory && <MemoryGame />}
         <CheckPerformance />
       </>
     ),
-    [isViewMenu, isViewRougelike, isViewArithmetic, isViewSnake],
+    [isViewMenu, isViewRougelike, isViewArithmetic, isViewSnake, isViewMemory],
   );
 };
 

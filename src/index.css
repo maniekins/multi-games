@@ -31,6 +31,7 @@
   --color-rust: #a34f36;
   --color-sun: #f6cf64;
   --color-highlight: gold;
+  --color-memory: #f2a58a;
   --color-sky: #c4e0ed;
   --color-muted: #526b63;
   --color-muted-light: #71827c;
@@ -85,6 +86,7 @@
   --width-panel: 580px;
   --width-content: 900px;
   --width-snake-play: 800px;
+  --width-memory-board: 1040px;
   --height-game-choice: 64px;
   --size-background-dot: 22px;
   --font-size-app-header: calc(10px + 2vmin);

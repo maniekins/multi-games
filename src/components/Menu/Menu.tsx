@@ -3,7 +3,7 @@ import { useViewActions } from '../../services/View';
 import './Menu.css';
 
 const Menu = () => {
-  const { setViewRougelike, setViewArithmetic, setViewSnake } = useViewActions();
+  const { setViewRougelike, setViewArithmetic, setViewSnake, setViewMemory } = useViewActions();
   return useMemo(
     () => (
       <main className="Menu">
@@ -18,6 +18,9 @@ const Menu = () => {
             <button className="Menu__choice Menu__choice--snake" onClick={setViewSnake}>
               Snake
             </button>
+            <button className="Menu__choice Menu__choice--memory" onClick={setViewMemory}>
+              Znajdź pary
+            </button>
             <button className="Menu__choice Menu__choice--roguelike" onClick={setViewRougelike}>
               Enter The Rougelike
             </button>
@@ -25,7 +28,7 @@ const Menu = () => {
         </section>
       </main>
     ),
-    [setViewArithmetic, setViewRougelike, setViewSnake],
+    [setViewArithmetic, setViewMemory, setViewRougelike, setViewSnake],
   );
 };
 
